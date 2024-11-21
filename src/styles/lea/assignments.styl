@@ -1,0 +1,191 @@
+@require '../colors.styl'
+
+.assignments-page
+    max-width 1200px
+    margin 0 auto
+
+.page-header
+    text-align center
+    margin-bottom 2rem
+
+    .TitrePageLigne1
+        font-size 1.5rem
+        font-weight 600
+        color $slate-900
+        margin-bottom 0.5rem
+        margin-top 1rem
+
+    .TitrePageLigne2
+        font-size 1.1rem
+        color $slate-600
+
+.assignments-container
+    display flex !important
+    flex-direction column
+    gap 1.5rem
+
+.category-container
+    background white
+    border-radius 12px
+    border 1px solid $neutral-200
+    overflow hidden
+    box-shadow 0 1px 2px 0 $neutral-100
+
+.category-header
+    padding 1rem
+    font-size 1.1rem
+    font-weight 600
+    color $slate-900
+    border-bottom 1px solid $neutral-200
+    background $slate-50
+
+.assignments-grid
+    display grid
+    grid-template-columns repeat(auto-fill, minmax(300px, 1fr))
+    gap 1rem
+    padding 1rem
+    background $neutral-50
+
+.assignment-card
+    position relative
+    background white
+    border-radius 12px
+    border 1px solid $neutral-200
+    padding 1.25rem
+    transition all 0.2s ease
+    cursor pointer
+    
+    &:hover
+        transform translateY(-2px)
+        box-shadow 0 8px 16px rgba(0, 0, 0, 0.08)
+    
+    &.unread
+        border-color $amber-500
+    
+    &.submitted
+        border-color $green-500
+
+.assignment-header
+    display flex
+    flex-direction column
+    justify-content space-between
+    align-items flex-start
+    margin-bottom 1rem
+    gap 1rem
+
+.assignment-title-row
+    display flex
+    flex-direction row
+    justify-content space-between
+    width 100%
+    align-items center
+    gap 0.75rem
+    flex 1
+
+.assignment-title
+    font-size 1.1rem
+    font-weight 600
+    color $slate-900
+    text-decoration none
+    line-height 1.05
+    text-align left
+    
+    &:hover
+        color $blue-600
+
+.due-date
+    display flex
+    align-items center
+    gap 0.75rem
+    background-color white
+    padding 0.75rem 1rem
+    border-radius 10px
+    font-size 0.9rem
+    color $slate-700
+    border 1px solid $slate-200
+    box-shadow 0 1px 2px rgba(0, 0, 0, 0.05)
+    
+    &.overdue
+        background-color $red-50
+        color $red-700
+        border-color $red-200
+
+    .due-label
+        color $slate-500
+        font-weight 500
+        
+    .date
+        font-weight 500
+        color $slate-800
+
+    .relative-date-badge
+        background-color $emerald-100
+        color $emerald-700
+        font-size 0.8rem
+        font-weight 600
+        padding 0.25rem 0.75rem
+        border-radius 999px
+        margin-left auto
+        border 1px solid $emerald-200
+        white-space nowrap
+
+.assignment-details
+    display flex
+    flex-direction column
+    gap 0.75rem
+    font-size 0.9rem
+
+    .label
+        color $slate-500
+        margin-right 0.5rem
+
+    .status
+        &.submitted
+            color $green-600
+
+.submission-info, .status-info
+    display flex
+    align-items center
+
+.status-indicators
+    display flex
+    flex-direction column
+    gap 0.75rem
+    align-items center
+
+.indicator
+    display flex
+    align-items center
+    justify-content center
+    transition all 0.2s ease
+    padding 6px
+    border-radius 9999px
+    
+    svg
+        width 16px
+        height 16px
+        fill none !important
+    
+    &.new-indicator
+        color $amber-500
+        background $amber-100
+        
+        &:hover
+            color $amber-600
+    
+    &.submitted-indicator
+        color $green-500
+        background $green-100
+                
+        &:hover
+            color $green-600
+    
+    &.overdue-indicator
+        color $red-500
+        background $red-100
+        &:hover
+            color $red-600
+
+// Override any display:none that might be affecting the assignments table
+table[id*="ListeTrav"]
+    display table !important
