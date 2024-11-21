@@ -158,12 +158,12 @@ export function convertMenuToFlex() {
 export function setCustomCourseColors() {
 	// Default colors if none are set
 	const defaultColors = {
-		"201-SF5-RE": "#df8e1d", // Discrete Math
-		"201-SN2-RE": "#d20f39", // Calculus
-		"345-101-MQ": "#40a02b", // Humanities
-		"420-SF1-RE": "#04a5e5", // Programming
-		"602-101-MQ": "#fe640b", // French
-		"603-101-MQ": "#ea76cb", // English
+		// "201-SF5-RE": "#df8e1d", // Discrete Math
+		// "201-SN2-RE": "#d20f39", // Calculus
+		// "345-101-MQ": "#40a02b", // Humanities
+		// "420-SF1-RE": "#04a5e5", // Programming
+		// "602-101-MQ": "#fe640b", // French
+		// "603-101-MQ": "#ea76cb", // English
 	};
 
 	const storedColors = JSON.parse(localStorage.getItem("courseColors") || "{}");
