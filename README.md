@@ -1,4 +1,4 @@
-![Readme Banner](./assets/readme-banner.png)
+![Readme Banner](https://raw.githubusercontent.com/EvanNotFound/omnivox-optimizer/refs/heads/main/assets/readme-banner.png)
 
 
 # Omnivox UI Optimizer
