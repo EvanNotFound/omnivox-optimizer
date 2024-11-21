@@ -39,7 +39,10 @@ import { logScriptInfo, checkForUpdates } from './modules/console';
         removeBrTags();
 
         // Optimize documents page
-        optimizeCourseDocuments();
+        if (currentUrl.includes('ListeDocuments.aspx') || currentUrl.includes('documents')) {
+            console.log('Documents page detected');
+            optimizeCourseDocuments();
+        }
 
 
         // Optimize assignments page
