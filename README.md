@@ -1,6 +1,33 @@
 # Omnivox UI Optimizer
 
+![Optimized Omnivox UI](./assets/home-page.png)
+
+
 A simple user script to improve the UI of Omnivox.
+
+## Installation Guide
+
+1. **Install a UserScript Manager**
+   - Recommended: Install [Violentmonkey](https://violentmonkey.github.io/) ([Chrome](https://chrome.google.com/webstore/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag) / [Firefox](https://addons.mozilla.org/firefox/addon/violentmonkey/))
+     - Violentmonkey is recommended because it's open-source, privacy-focused, and fully transparent
+   - Alternative: Install [Tampermonkey](https://www.tampermonkey.net/) ([Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) / [Firefox](https://addons.mozilla.org/firefox/addon/tampermonkey/))
+
+2. **Install the Script**
+   - Click [here](https://github.com/evannotfound/omnivox-optimizer/releases/latest/download/omnivox-optimizer.user.js) to install the latest version
+   - Your userscript manager will open showing the script details
+   - Click the "Install" or "Confirm installation" button
+
+3. **Verify Installation**
+   - Go to any Omnivox page
+   - You should see the improved UI automatically
+   - If not, try refreshing the page
+
+## Features
+- Modern, clean interface
+- Improved navigation
+- Better readability
+- Custom course colors
+- Optimized document viewing
 
 ## License
 

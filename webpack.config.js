@@ -1,6 +1,8 @@
 const path = require('path');
 const { UserscriptPlugin } = require('webpack-userscript');
 const pkg = require('./package.json');
+const userscriptConfig = require('./userscript.config');
+
 
 const dev = process.env.NODE_ENV === 'development';
 
@@ -24,16 +26,7 @@ module.exports = {
     },
   },
   plugins: [
-    new UserscriptPlugin({
-      headers: {
-        name: "Omnivox UI Optimizer",
-        version: dev ? `${pkg.version}-[buildTime]` : pkg.version,
-        author: pkg.author,
-        match: '*://*.omnivox.ca/*',
-        grant: ['GM_addStyle'],
-        'run-at': 'document-start',
-      }
-    }),
+    new UserscriptPlugin(userscriptConfig),
   ],
   module: {
     rules: [

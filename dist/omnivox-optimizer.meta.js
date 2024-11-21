@@ -5,6 +5,8 @@
 // @author Evan Luo
 // @homepage https://github.com/evannotfound/omnivox-optimizer
 // @match *://*.omnivox.ca/*
+// @downloadURL https://github.com/evannotfound/omnivox-optimizer/releases/latest/download/omnivox-optimizer.user.js
 // @grant GM_addStyle
 // @run-at document-start
+// @updateURL https://github.com/evannotfound/omnivox-optimizer/releases/latest/download/omnivox-optimizer.meta.js
 // ==/UserScript==
