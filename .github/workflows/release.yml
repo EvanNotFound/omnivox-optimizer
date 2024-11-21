@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'
 
+# Add permissions configuration
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,10 +28,10 @@ jobs:
           node-version: '18'
           cache: 'pnpm'
           
-      - name: Git config
+      - name: Configure Git
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
