@@ -12,7 +12,6 @@ module.exports = {
     updateURL: pkg.homepage + '/releases/latest/download/omnivox-optimizer.meta.js',
     downloadURL: pkg.homepage + '/releases/latest/download/omnivox-optimizer.user.js',
     grant: [
-      'GM_info',
       'GM_xmlhttpRequest'
     ]
   }
