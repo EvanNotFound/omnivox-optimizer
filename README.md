@@ -1,6 +1,8 @@
+![Readme Banner](./assets/readme-banner.png)
+
+
 # Omnivox UI Optimizer
 
-![Optimized Omnivox UI](./assets/home-page.png)
 
 
 A simple user script to improve the UI of Omnivox.
