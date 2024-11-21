@@ -409,7 +409,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   injectStyles: () => (/* binding */ injectStyles)\n/* harmony export */ });\n// Import all Stylus files from the styles directory\nconst stylusModules = __webpack_require__(\"./src/styles sync recursive \\\\.styl$\");\n\nfunction injectStyles() {\n    const styles = stylusModules.keys()\n        .map(key => {\n            const module = stylusModules(key);\n            const cssMatch = module.default.match(/`([^`]+)`/);\n            return cssMatch ? cssMatch[1] : '';\n        })\n        .join('\\n');\n\n    if (styles) {\n        const styleElement = document.createElement('style');\n        styleElement.textContent = styles;\n        document.head.appendChild(styleElement);\n    }\n}\n\n//# sourceURL=webpack://omnivox-optimizer/./src/modules/styles.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   injectStyles: () => (/* binding */ injectStyles)\n/* harmony export */ });\n// Import all Stylus files from the styles directory\nconst stylusModules = __webpack_require__(\"./src/styles sync recursive \\\\.styl$\");\n\nfunction injectStyles() {\n    // Add font preconnect links\n    const preconnectGoogle = document.createElement('link');\n    preconnectGoogle.rel = 'preconnect';\n    preconnectGoogle.href = 'https://fonts.googleapis.com';\n    \n    const preconnectGstatic = document.createElement('link');\n    preconnectGstatic.rel = 'preconnect';\n    preconnectGstatic.href = 'https://fonts.gstatic.com';\n    preconnectGstatic.crossOrigin = 'anonymous';\n    \n    const fontStylesheet = document.createElement('link');\n    fontStylesheet.rel = 'stylesheet';\n    fontStylesheet.href = 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap';\n\n    // Append font links to head\n    document.head.appendChild(preconnectGoogle);\n    document.head.appendChild(preconnectGstatic);\n    document.head.appendChild(fontStylesheet);\n\n    // Original style injection code\n    const styles = stylusModules.keys()\n        .map(key => {\n            const module = stylusModules(key);\n            const cssMatch = module.default.match(/`([^`]+)`/);\n            return cssMatch ? cssMatch[1] : '';\n        })\n        .join('\\n');\n\n    if (styles) {\n        const styleElement = document.createElement('style');\n        styleElement.textContent = styles;\n        document.head.appendChild(styleElement);\n    }\n}\n\n//# sourceURL=webpack://omnivox-optimizer/./src/modules/styles.js?");
 
 /***/ }),
 
@@ -502,7 +502,7 @@ eval("var map = {\n\t\"./basic.styl\": \"./src/styles/basic.styl\",\n\t\"./color
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("9c8db1462ec23e255a7f")
+/******/ 		__webpack_require__.h = () => ("c0fb32397ea1f518093b")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
