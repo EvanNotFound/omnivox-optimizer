@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Omnivox UI Optimizer
 // @description A simple user script to improve the UI of Omnivox.
-// @version 1.3.4
+// @version 1.3.5
 // @author Evan Luo
 // @homepage https://github.com/evannotfound/omnivox-optimizer
 // @match *://*.omnivox.ca/*
