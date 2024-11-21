@@ -1,4 +1,4 @@
-![Readme Banner](https://raw.githubusercontent.com/EvanNotFound/omnivox-optimizer/refs/heads/main/assets/readme-banner.png)
+![Readme Banner](./assets/readme-banner.png)
 
 
 # Omnivox UI Optimizer
@@ -46,6 +46,14 @@ A simple user script to improve the UI of Omnivox.
 - Better readability
 - Custom course colors
 - Optimized document viewing
+- Optimized assignments viewing
+
+
+## Screenshots
+
+![Home](./assets/home-page.png)
+![Assignments](./assets/assignments-page.png)
+![Documents](./assets/documents-page.png)
 
 ## License
 
