@@ -13,6 +13,7 @@ module.exports = {
     downloadURL: pkg.homepage + '/releases/latest/download/omnivox-optimizer.user.js',
     grant: [
       'GM_xmlhttpRequest'
-    ]
+    ],
+    license: 'GPL-3.0'
   }
 };
