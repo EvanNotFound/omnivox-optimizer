@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.4](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.3...v1.3.4) (2024-11-21)
+
+
+### Features
+
+* add version console log info ([a142256](https://github.com/evannotfound/omnivox-optimizer/commit/a1422566a74461bed4c8804f413ba2343cfae366))
+* remove GM_styles completely to support Userscripts ([f9b45b5](https://github.com/evannotfound/omnivox-optimizer/commit/f9b45b59cc3c89cba34cc64d14e5cdd188eef9df))
+
 ### [1.3.3](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.2...v1.3.3) (2024-11-21)
 
 
