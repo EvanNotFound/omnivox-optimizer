@@ -1,0 +1,248 @@
+@require '../colors.styl' /* Remove left margin from right section */
+
+.descSection > span:first-child
+    margin-left 0 !important
+
+.dlsCal
+    top 0 !important
+
+/* Title styling */
+h1.classes-titre
+    padding 0 !important
+    margin-top 1rem !important
+
+.section-centre
+    display flex !important
+    flex-direction column !important
+    gap 0.5rem !important
+    padding 1rem 2rem !important
+
+/* Classes wrapper flex layout */
+.classes-wrapper.materialize-wrapper
+    display flex !important
+    flex-wrap wrap !important
+    width 100% !important
+    gap 20px !important
+    padding 20px !important
+    margin 0 auto !important
+    max-width 1400px !important
+    padding 0 !important
+
+/* Make course cards flex items */
+.classes-wrapper.materialize-wrapper > *
+    flex 1 1 300px !important
+    min-width 300px !important
+    max-width 400px !important
+    margin 0 !important
+
+/* Improve main content area and right section in menu */
+.td-menu
+    background white
+    box-shadow 0 1px 3px rgba(0, 0, 0, 0.1)
+    padding 10px
+
+.section-droite
+    margin-top 20px !important
+    border-top 1px solid #e0e0e0 !important
+    padding-top 20px !important
+    height 25vh !important
+    overflow-y auto !important
+
+/* Hide unnecessary decorative elements */
+img[src*='/cvir/UI/Theme/Lea_Defaut/Images/'], .table-plug-skytech, .UnInstantClassVirtuelle
+    display none !important
+
+/* Improve course links */
+.contenuMenuGroupeLEASelectV3estdMenuV2
+    background white !important
+    padding 10px !important
+    margin 5px 0 !important
+    border-radius 4px !important
+    border 1px solid #e0e0e0 !important
+    transition background-color 0.2s !important
+
+.contenuMenuGroupeLEASelectV3estdMenuV2:hover
+    background #f8f9fa !important
+
+#cntFormulaire_mioInfoTile, #cntFormulaire_leaInfoTile
+    display none !important
+
+/* Optimize sidebar container */
+.trBandeau > td:first-child
+    padding 0 16px !important
+
+.trBandeau
+    position sticky !important
+    top 56px !important
+
+/* Lea and Mio buttons */
+#region-raccourcis-services-skytech
+    padding 20px 0 !important
+    display flex !important
+    flex-direction row !important
+    gap 16px !important
+    justify-content center !important
+    margin 0 !important
+
+#region-raccourcis-services-skytech .raccourci
+    padding 1rem !important
+    background white !important
+    border-radius 12px !important
+    border 1px solid #e0e0e0 !important
+    transition all 0.2s ease !important
+    text-decoration none !important
+    min-width 120px !important
+    display flex !important
+    flex-direction row !important
+    justify-content space-between !important
+    align-items center !important
+    gap 8px !important
+    box-shadow 0 1px 2px 0 $neutral-100 !important
+
+#region-raccourcis-services-skytech .raccourci:hover
+    background #f8f9fa !important
+    transform translateY(-2px) !important
+    box-shadow 0 4px 12px rgba(0, 0, 0, 0.05) !important
+
+#region-raccourcis-services-skytech .svg-icon
+    width 24px !important
+    height 24px !important
+    opacity 0.8 !important
+    border-radius 4px !important
+    margin 0 !important
+    padding 0.5rem !important
+
+#region-raccourcis-services-skytech .titre
+    font-weight 500 !important
+    color #2c3e50 !important
+    padding 0 !important
+
+#region-raccourcis-services-skytech .raccourci .svg-icon
+    box-shadow 0 0 0 1px $neutral-200 !important
+
+/* Optimize card panel */
+.card-panel.section-spacing
+    box-shadow 0 1px 2px 0 $neutral-200 !important
+    border 1px solid $neutral-300 !important
+
+.cvirContenuCVIR
+    padding 0 !important
+
+/* =================================================
+LEFT MENU
+================================================ */
+
+.parent-menu-gauche
+    padding 0 !important
+    margin 0 !important
+
+.menu-section-title
+    padding 10px 0 !important
+    text-align left !important
+    margin 0
+    font-size 16px
+    font-weight bold
+    color #4a951f
+
+.trMenuPrincipal > td:first-child
+    padding 0 !important
+
+.infoCGNoCours
+    font-size 1.2rem
+    letter-spacing -0.02em
+
+.cgSelect, .cgBg
+    background-image none !important
+
+.cgBg div
+    margin 0 !important
+
+.cgSelect
+    margin 0.5rem 0 !important
+    display flex !important
+    justify-content center !important
+    align-items center !important
+    background $slate-50 !important
+    padding 0.5rem 0 !important
+    border-radius 0.5rem !important
+
+.cgSelect table
+    margin 0 !important
+
+/* Remove text shadow effect in cgSelect */
+.cgSelect font, .cvirLienCoursShadow font
+    display none !important
+
+/* Adjust the original text styling */
+.cgSelect a, .cvirLienCoursShadow
+    position static !important
+    left 0 !important
+    color #2c3e50 !important /* Or any color you prefer */
+    font-weight 500 !important
+
+/* Semester selector styling improvements */
+.cgSelect
+    background white !important
+    border 1px solid #e0e0e0 !important
+    border-radius 8px !important
+    padding 12px 16px !important
+    margin 8px 0 !important
+    box-shadow 0 1px 3px rgba(0, 0, 0, 0.05) !important
+
+.cgSelect-table
+    width 100% !important
+
+/* Style the semester and class selection links */
+.cgSelect a
+    color #2c3e50 !important
+    font-size 15px !important
+    font-weight 500 !important
+    text-decoration none !important
+    transition color 0.2s ease !important
+
+.cgSelect a:hover
+    color #4a951f !important /* Green accent color on hover */
+
+/* Remove the text shadow effect more cleanly */
+.cgSelect font
+    display none !important
+
+/* Adjust spacing between semester and class selection */
+.cgSelect td
+    padding 0 8px !important
+
+/* Add subtle separator between semester and class selection */
+.cgSelect td:last-child
+    border-left 1px solid #e0e0e0 !important
+    padding-left 16px !important
+
+body > table:nth-child(8) > tbody > tr.trBandeau > td.td-menu > div.parent-menu-gauche > table:nth-child(2) > tbody > tr:nth-child(4) > td > table > tbody > tr > td:nth-child(2)
+    text-align center !important
+    padding 0 !important
+
+#divChoixCoursGroupeCoursMenuV2, #tblChoixCoursGroupeSession
+    margin-top 1.1rem !important
+
+/* Menu items base styles and hover effect */
+.tdMenuNonSelectionneMesClasses a, .tdMenuNonSelectionneMesClasses span, .tdMenuNonSelectionneSeulMesClasses a, .tdMenuNonSelectionneSeulMesClasses span, .tdMenuNonSelectionneMesServices a, .tdMenuNonSelectionneMesServices span, .tdMenuNonSelectionneSeulMesServices a, .tdMenuNonSelectionneSeulMesServices span, .tdMenuSelectionneMesClasses a, .tdMenuSelectionneMesClasses span, .tdMenuSelectionneSeulMesClasses a, .tdMenuSelectionneSeulMesClasses span, .tdMenuSelectionneMesServices a, .tdMenuSelectionneMesServices span, .tdMenuSelectionneSeulMesServices a, .tdMenuSelectionneSeulMesServices span, .tdMenuNonAccessibleMesClasses a, .tdMenuNonAccessibleMesClasses span, .tdMenuNonAccessibleMesServices a, .tdMenuNonAccessibleMesServices span, .tdMenuNonSelectionneSeulAssi a, .tdMenuNonSelectionneSeulAssi span, .tdMenuNonSelectionneAssisPedMenu a, .tdMenuNonSelectionneAssisPedMenu span, .tdMenuSelectionneSeulAssi a, .tdMenuSelectionneSeulAssi span, .tdMenuSelectionneAssisPedMenu a, .tdMenuSelectionneAssisPedMenu span
+    padding 0.5rem 0px !important
+    transition background-color 0.2s ease !important
+    display block !important
+    border-radius 0.5rem !important
+
+/* Hover effect */
+.tdMenuNonSelectionneMesClasses a:hover, .tdMenuNonSelectionneSeulMesClasses a:hover, .tdMenuNonSelectionneMesServices a:hover, .tdMenuNonSelectionneSeulMesServices a:hover, .tdMenuSelectionneMesClasses a:hover, .tdMenuSelectionneSeulMesClasses a:hover, .tdMenuSelectionneMesServices a:hover, .tdMenuSelectionneSeulMesServices a:hover, .tdMenuNonAccessibleMesClasses a:hover, .tdMenuNonAccessibleMesServices a:hover, .tdMenuNonSelectionneSeulAssi a:hover, .tdMenuNonSelectionneAssisPedMenu a:hover, .tdMenuSelectionneSeulAssi a:hover, .tdMenuSelectionneAssisPedMenu a:hover
+    background-color rgba(0, 0, 0, 0.05) !important
+
+.sousMenuTable, .sousMenuTable table
+
+.tdMenuNonSelectionneMesClasses, .tdMenuNonSelectionneSeulMesClasses
+    background-image none !important
+
+/* Hide "My services" table */
+body > table:nth-child(8) > tbody > tr.trBandeau > td.td-menu > div.parent-menu-gauche > table:nth-child(5), body > table:nth-child(8) > tbody > tr.trBandeau > td.td-menu > div.parent-menu-gauche > table:nth-child(6)
+    display none !important
+
+/* Optimize calendar section */
+.descSection > span:first-child
+    padding-right 0 !important

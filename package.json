@@ -1,0 +1,31 @@
+{
+	"name": "omnivox-optimizer",
+	"version": "1.2.0",
+	"homepage": "https://github.com/evannotfound/omnivox-optimizer",
+	"license": "GPL-3.0",
+	"author": "Evan Luo",
+	"description": "UI enhancements for Omnivox",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evannotfound/omnivox-optimizer.git"
+	},
+	"scripts": {
+		"prepare": "husky install",
+		"build": "webpack --mode production",
+		"dev": "webpack serve --mode development"
+	},
+	"devDependencies": {
+		"css-loader": "^7.1.2",
+		"prettier": "^3.3.3",
+		"raw-loader": "^4.0.2",
+		"stylus": "^0.64.0",
+		"stylus-loader": "^8.1.1",
+		"webpack": "^5.96.1",
+		"webpack-cli": "^5.1.4",
+		"webpack-dev-server": "^5.1.0",
+		"webpack-userscript": "^3.2.2"
+	},
+	"dependencies": {
+		"husky": "^9.1.7"
+	}
+}

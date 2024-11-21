@@ -1,0 +1,111 @@
+@require '../colors.styl'
+
+#ctl00 > center
+    padding 1rem !important
+
+.documents-container
+    display flex
+    flex-direction column
+    gap 2rem
+    max-width 100%
+    margin 0 auto
+
+.category-container
+    border 1px solid $neutral-200
+    border-radius 8px
+    overflow hidden
+
+.category-header
+    background white
+    border-bottom 1px solid $neutral-200
+    padding 1rem
+    font-weight 600
+    color $slate-900
+    font-size 1.1rem
+
+.documents-grid
+    display grid
+    grid-template-columns repeat(auto-fill, minmax(300px, 1fr))
+    gap 1rem
+    padding 1rem
+    background $neutral-50
+
+.document-card
+    display flex
+    align-items start
+    gap 1rem
+    padding 1rem
+    background white
+    border-radius 8px
+    border 1px solid $neutral-200
+    box-shadow 0 1px 2px 0 $neutral-100
+    transition all 0.2s ease
+    cursor pointer
+
+.document-card:hover
+    transform translateY(-2px)
+    box-shadow 0 4px 12px rgba(0, 0, 0, 0.05)
+    border-color $neutral-300
+
+.doc-icon
+    flex-shrink 0
+    width 32px
+    height 32px
+    display flex
+    align-items center
+    justify-content center
+
+.doc-icon img
+    width 24px
+    height 24px
+    object-fit contain
+
+.doc-info
+    flex 1
+    min-width 0
+
+.doc-title
+    display block
+    font-size 0.9rem
+    font-weight 500
+    color $slate-900
+    text-decoration none
+    margin-bottom 0.5rem
+    line-height 1.4
+    text-align left
+
+.doc-title:hover
+    color $slate-700
+
+.doc-meta
+    display flex
+    gap 1rem
+    font-size 0.8rem
+    color $slate-500
+
+.doc-date, .doc-size
+    display flex
+    align-items center
+    gap 0.25rem
+
+.doc-date::before
+    content '📅'
+    font-size 0.9em
+
+.doc-size::before
+    content '📁'
+    font-size 0.9em
+
+body > table:nth-child(8) > tbody > tr.trBandeau > td:nth-child(2), #tblExplicationsEtudiant, #ctl00 > center > table:nth-child(4)
+    display none
+
+.TitrePageLigne1
+    text-align left
+    font-size 1.2rem
+    margin-bottom 0.5rem
+
+.TitrePageLigne2
+    font-size 1rem
+    color $zinc-400
+    text-align left
+    margin-bottom 1rem

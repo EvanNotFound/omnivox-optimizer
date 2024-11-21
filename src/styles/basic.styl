@@ -1,0 +1,24 @@
+@require './colors.styl'
+
+/* Basic improvements */
+body
+    font-family 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important
+    background $neutral-100
+    -webkit-font-smoothing antialiased
+
+/* Font */
+.infoCGNoCours, .infoCGNomCours, .infoCGTous, .infoCGNoGroupe, .om a, .om a:link, .om a:visited, .om a:active
+    font-family 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important
+
+header.lea #headerImage
+    background-image url('https://assets.ohevan.com/img/d7418ab98f310ba3fd14214d7b11771f.jpg') !important
+    background-size cover !important
+    background-position center !important
+
+/* Remove background images */
+[style*='accueil_cal_bot2.jpg'], [style*='accueil_cal_tile.jpg'], [style*='accueil_cal_top5.jpg'], [style*='accueil_cal_top1.jpg'], [style*='accueil_cal_top2.jpg'], [style*='accueil_mio_top3.jpg']
+    background-image none !important
+
+/* Hide decorative images */
+img[src*='accueil_cal_top4.jpg']
+    display none !important
