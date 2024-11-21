@@ -10,6 +10,10 @@ module.exports = {
     match: '*://*.omnivox.ca/*',
     'run-at': 'document-start',
     updateURL: pkg.homepage + '/releases/latest/download/omnivox-optimizer.meta.js',
-    downloadURL: pkg.homepage + '/releases/latest/download/omnivox-optimizer.user.js'
+    downloadURL: pkg.homepage + '/releases/latest/download/omnivox-optimizer.user.js',
+    grant: [
+      'GM_info',
+      'GM_xmlhttpRequest'
+    ]
   }
 };
