@@ -5,13 +5,14 @@ export function injectStyles() {
     const styles = stylusModules.keys()
         .map(key => {
             const module = stylusModules(key);
-            // Extract CSS between backticks using regex
             const cssMatch = module.default.match(/`([^`]+)`/);
             return cssMatch ? cssMatch[1] : '';
         })
         .join('\n');
 
     if (styles) {
-        GM_addStyle(styles);
+        const styleElement = document.createElement('style');
+        styleElement.textContent = styles;
+        document.head.appendChild(styleElement);
     }
 }
