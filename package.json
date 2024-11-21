@@ -4,7 +4,7 @@
 	"homepage": "https://github.com/evannotfound/omnivox-optimizer",
 	"license": "GPL-3.0",
 	"author": "Evan Luo",
-	"description": "UI enhancements for Omnivox",
+	"description": "A simple user script to improve the UI of Omnivox.",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/evannotfound/omnivox-optimizer.git"

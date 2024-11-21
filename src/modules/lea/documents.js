@@ -70,9 +70,4 @@ export function optimizeCourseDocuments() {
 
     // Replace table with new container
     documentsTable.parentNode.replaceChild(mainContainer, documentsTable);
-
-    // Add the necessary styles
-    GM_addStyle(`
-
-    `);
 }

@@ -91,68 +91,6 @@ export function convertMenuToFlex() {
 
 	// Replace original table with flex menu
 	menuTable.parentNode.replaceChild(flexMenu, menuTable);
-
-	// Add the necessary styles
-	GM_addStyle(`
-        .flex-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            padding: 8px;
-        }
-
-        .flex-menu-item {
-            position: relative;
-        }
-
-        .flex-menu-item > a {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: inherit;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-            text-align: left !important;
-        }
-
-        .flex-menu-item > a:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        .flex-submenu {
-            display: none;
-            position: absolute;
-            left: 50%;
-            top: 0;
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            min-width: 200px;
-            z-index: 999999999999999999999999999 !important;
-        }
-
-        .flex-menu-item:hover .flex-submenu {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            padding: 4px;
-        }
-
-        .flex-submenu-item a {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: inherit;
-            border-radius: 4px;
-            transition: background-color 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .flex-submenu-item a:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-    `);
 }
 
 export function setCustomCourseColors() {

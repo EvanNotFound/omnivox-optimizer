@@ -8,7 +8,6 @@ module.exports = {
     description: pkg.description,
     homepage: pkg.homepage,
     match: '*://*.omnivox.ca/*',
-    grant: ['GM_addStyle'],
     'run-at': 'document-start',
     updateURL: pkg.homepage + '/releases/latest/download/omnivox-optimizer.meta.js',
     downloadURL: pkg.homepage + '/releases/latest/download/omnivox-optimizer.user.js'
