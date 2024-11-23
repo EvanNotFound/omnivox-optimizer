@@ -38,7 +38,6 @@ export function optimizeCourseDocuments() {
         // Convert each row to a grid item
         documentRows.forEach(row => {
             const title = row.querySelector('.lblTitreDocumentDansListe')?.textContent?.trim();
-            // Remove "since" from the date string
             const date = row.querySelector('.DocDispo')?.textContent?.trim().replace('since', '').trim();
             const fileLink = row.querySelector('.colVoirTelecharger a');
             const fileIcon = row.querySelector('.colVoirTelecharger img');
@@ -46,6 +45,9 @@ export function optimizeCourseDocuments() {
             
             if (!title || !fileLink) return;
 
+            // Extract the visualization URL from the javascript: handler
+            const visualizeUrl = fileLink.href.match(/VisualiseDocument\.aspx\?.*?(?=')/)?.[0];
+            
             const docCard = document.createElement('div');
             docCard.className = 'document-card';
             docCard.innerHTML = `
@@ -53,7 +55,7 @@ export function optimizeCourseDocuments() {
                     ${fileIcon ? `<img src="${fileIcon.src}" alt="File type">` : ''}
                 </div>
                 <div class="doc-info">
-                    <a href="${fileLink.href}" target="_blank" class="doc-title">${title}</a>
+                    <a href="${visualizeUrl || fileLink.href}" class="doc-title">${title}</a>
                     <div class="doc-meta">
                         ${date ? `<span class="doc-date">${date}</span>` : ''}
                         ${fileSize ? `<span class="doc-size">${fileSize}</span>` : ''}
