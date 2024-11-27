@@ -1,0 +1,131 @@
+/* grades.styl */
+
+/* Import color variables or define them if not already defined */
+$neutral-50 = #fafafa
+$neutral-100 = #f5f5f5
+$neutral-200 = #eeeeee
+$neutral-300 = #e0e0e0
+$slate-800 = #374151
+$slate-900 = #1f2937
+$blue-600 = #2563eb
+
+/* Grades Page Container */
+.grades-page
+    max-width 100%
+    padding 2rem 1rem
+    margin 0 auto
+    background-color $neutral-100
+    display flex
+    flex-direction column
+    align-items center
+
+/* Grades Chart Container */
+.grades-chart-container
+    background-color transparent
+    padding 1.5rem 0
+    max-width 800px
+    width 100%
+    margin 2rem auto
+
+/* Chart Canvas */
+#gradesChart
+    width 100% !important
+    max-width 800px
+    height 400px
+
+/* Grades Summary Table */
+.tableau-notes
+    width 100%
+    max-width 800px
+    margin 0 auto
+    border-collapse collapse
+    background-color transparent
+    font-size 1rem
+
+    /* Table Headers */
+    tr:first-child
+        background-color $neutral-300
+        font-weight bold
+
+        td
+            padding 0.75rem 1rem
+            text-align center
+            font-size 1rem
+            color $slate-900
+
+    /* Data Rows */
+    tbody tr:not(:first-child)
+        display table-row
+        align-items center
+        padding 1rem 0
+        border-bottom 1px solid $neutral-300
+        background-color $neutral-50
+
+        &:nth-child(odd)
+            background-color $neutral-100
+
+        &:hover
+            background-color $neutral-200
+
+        td
+            padding 0.5rem 1rem
+            font-size 1rem
+            color $slate-800
+            vertical-align middle
+            text-align center
+
+            a
+                color $blue-600
+                text-decoration none
+
+                &:hover
+                    text-decoration underline
+
+/* Modernize UI elements */
+.titrePageLea
+    display none /* Hide the 'Assessment marks summary' title */
+
+/* Hide unnecessary columns consistently */
+.tableau-notes td:nth-child(2),
+.tableau-notes td:nth-child(6),
+.tableau-notes td:nth-child(7),
+.tableau-notes tr:first-child td:nth-child(2),
+.tableau-notes tr:first-child td:nth-child(6),
+.tableau-notes tr:first-child td:nth-child(7)
+    display none
+
+/* Adjust alignment for specific columns */
+.tableau-notes td:nth-child(3)
+    text-align left
+    width 50%
+
+.tableau-notes td:nth-child(4),
+.tableau-notes td:nth-child(5)
+    width 25%
+
+/* Adjust font styles */
+body
+    font-family 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif
+    color $slate-900
+    background-color $neutral-100
+
+/* Remove unwanted margins and paddings */
+* {
+    margin 0
+    padding 0
+    box-sizing border-box
+}
+
+/* Responsive Design */
+@media (max-width: 768px)
+    .grades-chart-container
+        padding 1rem
+
+    #gradesChart
+        height 300px
+
+    .tableau-notes
+        font-size 0.9rem
+
+    .tableau-notes tbody tr
+        font-size 0.9rem

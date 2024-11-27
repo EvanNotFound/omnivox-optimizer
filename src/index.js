@@ -51,6 +51,12 @@ import { logScriptInfo, checkForUpdates } from './modules/console';
             optimizeAssignmentsList();
         }
 
+        // Optimize grades page
+        if (currentUrl.includes('ListeEvalCVIR.ovx') || currentUrl.includes('grades')) {
+            console.log('Grades page detected');
+            // optimizeGradesList();
+        }
+
         // Check for updates
         checkForUpdates();
 
