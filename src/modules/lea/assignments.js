@@ -168,6 +168,10 @@ function isOverdue(dateStr) {
 
 function formatDate(dateStr) {
     const date = new Date(dateStr);
+    // If the time is exactly midnight (00:00), set it to 23:59 of the same day
+    if (date.getHours() === 0 && date.getMinutes() === 0) {
+        date.setHours(23, 59);
+    }
     return date.toLocaleDateString('en-US', { 
         weekday: 'short',
         month: 'short', 
