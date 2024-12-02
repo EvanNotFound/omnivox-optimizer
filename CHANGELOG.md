@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.12](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.11...v1.3.12) (2024-12-02)
+
+
+### Features
+
+* fix assignments date ([51ea8ca](https://github.com/evannotfound/omnivox-optimizer/commit/51ea8caf26a0c4dfd3d06d09f1c7f21dd27af59b))
+
 ### [1.3.11](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.10...v1.3.11) (2024-11-23)
 
 
