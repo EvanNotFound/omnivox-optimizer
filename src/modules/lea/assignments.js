@@ -36,114 +36,127 @@ export function optimizeAssignmentsList() {
     // Process each category
     const categories = [];
     let currentCategory = null;
-    
-    // Process each row to group assignments by category
+
     assignmentsTable.querySelectorAll('tr').forEach(row => {
+        // Skip header rows
+        if (row.querySelector('.EnteteListTabTravauxEtu')) {
+            return;
+        }
+
         const categoryTitle = row.querySelector('.TitreCategorie');
         if (categoryTitle) {
-            if (currentCategory) {
-                categories.push(currentCategory);
-            }
             currentCategory = {
-                title: categoryTitle.textContent.trim(),
+                title: categoryTitle.textContent.trim() || 'Assignments',
                 assignments: []
             };
-        } else {
-            const assignment = row.querySelector('.LigneListTrav1, .LigneListTrav2');
-            if (assignment && currentCategory) {
-                const title = row.querySelector('a')?.textContent?.trim();
-                const link = row.querySelector('a')?.getAttribute('onclick')?.match(/OpenCentre\('([^']+)'/)?.[1];
-                const date = row.querySelector('span')?.textContent?.trim();
-                const submissionMethod = row.querySelector('.RemTrav_Sommaire_ProchainsTravauxDesc')?.textContent?.trim();
-                
-                // Update status extraction to look at the correct column and check for submission info
-                const statusCell = row.querySelector('td[colspan="4"]');
-                const submissionLink = statusCell?.querySelector('a');
-                const status = submissionLink ? 'Submitted' : '-';
-                const isUnread = row.querySelector('.CellEnonceNonVisualise img[src*="TravailNonVisualise"]') !== null;
-                
-                if (title && link) {
-                    currentCategory.assignments.push({
-                        title,
-                        link,
-                        date,
-                        submissionMethod,
-                        status,
-                        isUnread
-                    });
-                }
-            }
+            categories.push(currentCategory);
+            return;
+        }
+
+        const assignmentLink = row.querySelector('a[onclick*="OpenCentre"]');
+        if (!assignmentLink) {
+            return;
+        }
+
+        if (!currentCategory) {
+            currentCategory = {
+                title: 'Assignments',
+                assignments: []
+            };
+            categories.push(currentCategory);
+        }
+
+        const assignmentData = extractAssignmentFromRow(row, assignmentLink);
+        if (assignmentData) {
+            currentCategory.assignments.push(assignmentData);
         }
     });
-    
-    if (currentCategory) {
-        categories.push(currentCategory);
-    }
+
+    const populatedCategories = categories.filter(category => category.assignments.length > 0);
 
     // Create the new grid-based interface
-    categories.forEach(category => {
-        const categoryContainer = document.createElement('div');
-        categoryContainer.className = 'category-container';
+    if (populatedCategories.length === 0) {
+        const emptyState = document.createElement('div');
+        emptyState.className = 'assignments-empty-state';
+        emptyState.innerHTML = `
+            <div class="empty-title">No assignments to display</div>
+            <div class="empty-subtitle">Check back later for new assignments.</div>
+        `;
+        mainContainer.appendChild(emptyState);
+    } else {
+        populatedCategories.forEach(category => {
+            const categoryContainer = document.createElement('div');
+            categoryContainer.className = 'category-container';
 
-        const categoryHeader = document.createElement('div');
-        categoryHeader.className = 'category-header';
-        categoryHeader.textContent = category.title;
-        categoryContainer.appendChild(categoryHeader);
+            const categoryHeader = document.createElement('div');
+            categoryHeader.className = 'category-header';
+            categoryHeader.textContent = category.title;
+            categoryContainer.appendChild(categoryHeader);
 
-        const assignmentsGrid = document.createElement('div');
-        assignmentsGrid.className = 'assignments-grid';
+            const assignmentsGrid = document.createElement('div');
+            assignmentsGrid.className = 'assignments-grid';
 
-        category.assignments.forEach(assignment => {
-            const assignmentCard = document.createElement('div');
-            assignmentCard.className = `assignment-card ${assignment.isUnread ? 'unread' : ''} ${assignment.status === 'Submitted' ? 'submitted' : ''}`;
-            
-            // Extract the actual URL from the onclick handler
-            const cleanLink = assignment.link.replace(/^OpenCentre\('([^']+)'.*$/, '$1');
-            
-            // Add click handler to the entire card
-            assignmentCard.onclick = () => {
-                OpenCentre(cleanLink, 'DepotTravailPopup', 'toolbar=no,location=no,directories=no,status=no,menubar=no,resizable=yes,scrollbars=yes', 700, 780, true);
-            };
-            assignmentCard.style.cursor = 'pointer'; // Add pointer cursor to indicate clickability
-            
-            assignmentCard.innerHTML = `
-                <div class="assignment-header">
-                    <div class="assignment-title-row">
-                        <span class="assignment-title">${assignment.title}</span>
-                        ${createStatusIndicators(assignment)}
+            category.assignments.forEach(assignment => {
+                const assignmentCard = document.createElement('div');
+                assignmentCard.className = `assignment-card ${assignment.isUnread ? 'unread' : ''} ${assignment.isSubmitted ? 'submitted' : ''}`;
+
+                const cardClickHandler = createCardClickHandler(assignment.onClickAttribute);
+                if (cardClickHandler) {
+                    assignmentCard.addEventListener('click', cardClickHandler);
+                    assignmentCard.addEventListener('keydown', event => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            cardClickHandler();
+                        }
+                    });
+                    assignmentCard.setAttribute('role', 'button');
+                    assignmentCard.tabIndex = 0;
+                    assignmentCard.style.cursor = 'pointer';
+                }
+
+                const formattedDueDate = formatDate(assignment.dueDate, assignment.dueText);
+                const relativeDueDate = formatRelativeDate(assignment.dueDate);
+                const isOverdueAssignment = !assignment.isSubmitted && isOverdue(assignment.dueDate);
+
+                assignmentCard.innerHTML = `
+                    <div class="assignment-header">
+                        <div class="assignment-title-row">
+                            <span class="assignment-title">${assignment.title}</span>
+                            ${createStatusIndicators(assignment)}
+                        </div>
+                        ${assignment.dueText ? `
+                            <div class="due-date ${isOverdueAssignment ? 'overdue' : ''}">
+                                <span class="due-label">Due:</span>
+                                <span class="date">${formattedDueDate}</span>
+                                ${!isOverdueAssignment && relativeDueDate ? `
+                                    <span class="relative-date-badge">${relativeDueDate}</span>
+                                ` : ''}
+                            </div>
+                        ` : ''}
                     </div>
-                    ${assignment.date ? `
-                        <div class="due-date ${!assignment.status.includes('Submitted') && isOverdue(assignment.date) ? 'overdue' : ''}">
-                            <span class="due-label">Due:</span>
-                            <span class="date">${formatDate(assignment.date)}</span>
-                            ${!isOverdue(assignment.date) && formatRelativeDate(assignment.date) ? `
-                                <span class="relative-date-badge">${formatRelativeDate(assignment.date)}</span>
-                            ` : ''}
-                        </div>
-                    ` : ''}
-                </div>
-                <div class="assignment-details">
-                    ${assignment.submissionMethod ? `
-                        <div class="submission-info">
-                            <span class="label">Submit via:</span>
-                            <span class="method">${assignment.submissionMethod}</span>
-                        </div>
-                    ` : ''}
-                    ${assignment.status !== '-' ? `
-                        <div class="status-info">
-                            <span class="label">Status:</span>
-                            <span class="status ${assignment.status.includes('Submitted') ? 'submitted' : ''}">${assignment.status}</span>
-                        </div>
-                    ` : ''}
-                </div>
-               
-            `;
-            assignmentsGrid.appendChild(assignmentCard);
-        });
+                    <div class="assignment-details">
+                        ${assignment.submissionMethod ? `
+                            <div class="submission-info">
+                                <span class="label">Submit via:</span>
+                                <span class="method">${assignment.submissionMethod}</span>
+                            </div>
+                        ` : ''}
+                        ${assignment.statusLabel !== '-' ? `
+                            <div class="status-info">
+                                <span class="label">Status:</span>
+                                <span class="status ${assignment.isSubmitted ? 'submitted' : ''}">${assignment.statusLabel}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                   
+                `;
+                assignmentsGrid.appendChild(assignmentCard);
+            });
 
-        categoryContainer.appendChild(assignmentsGrid);
-        mainContainer.appendChild(categoryContainer);
-    });
+            categoryContainer.appendChild(assignmentsGrid);
+            mainContainer.appendChild(categoryContainer);
+        });
+    }
 
     pageContainer.appendChild(mainContainer);
 
@@ -159,41 +172,274 @@ export function optimizeAssignmentsList() {
     }
 }
 
-function isOverdue(dateStr) {
-    const dueDate = new Date(dateStr);
-    const now = new Date();
-    // Don't mark as overdue if it's within 24 hours of now (to handle same-day deadlines better)
-    return dueDate < now;
+function extractAssignmentFromRow(row, linkElement) {
+    const title = linkElement.textContent ? linkElement.textContent.trim() : '';
+    const onClickAttribute = linkElement.getAttribute('onclick') || '';
+    const linkMatch = onClickAttribute.match(/OpenCentre\('([^']+)'/);
+    const link = linkMatch ? linkMatch[1] : null;
+
+    const cells = Array.from(row.children).filter(cell => cell.tagName === 'TD');
+    const dueCell = cells[2] || null;
+    const statusCell = cells[3] || null;
+
+    const submissionMethod = dueCell?.querySelector('.RemTrav_Sommaire_ProchainsTravauxDesc')?.textContent?.trim() || null;
+
+    let dueText = null;
+    if (dueCell) {
+        const primarySpan = Array.from(dueCell.querySelectorAll('span')).find(span => !span.classList.contains('RemTrav_Sommaire_ProchainsTravauxDesc'));
+        const rawDueText = primarySpan?.textContent ?? dueCell.textContent ?? '';
+        const cleanedDueText = normalizeWhitespace(rawDueText);
+        if (cleanedDueText) {
+            if (submissionMethod) {
+                const normalizedMethod = normalizeWhitespace(submissionMethod);
+                dueText = cleanedDueText.replace(normalizedMethod, '').trim();
+            } else {
+                dueText = cleanedDueText;
+            }
+        }
+    }
+
+    let statusLabel = '-';
+    if (statusCell) {
+        const normalizedStatus = normalizeWhitespace(statusCell.textContent);
+        if (normalizedStatus) {
+            statusLabel = normalizedStatus;
+        }
+    }
+
+    const isSubmitted = /submitted|remise\s*ok|remis/i.test(statusLabel);
+    const isUnread = row.querySelector('.CellEnonceNonVisualise img[src*="TravailNonVisualise"]') !== null;
+    const dueDate = parseDueDate(dueText);
+
+    if (!title || !link) {
+        return null;
+    }
+
+    return {
+        title,
+        link,
+        onClickAttribute,
+        dueText,
+        dueDate,
+        submissionMethod,
+        statusLabel,
+        isSubmitted,
+        isUnread
+    };
 }
 
-function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    // If the time is exactly midnight (00:00), set it to 23:59 of the same day
-    if (date.getHours() === 0 && date.getMinutes() === 0) {
-        date.setHours(23, 59);
+function createCardClickHandler(rawOnClick) {
+    if (!rawOnClick) {
+        return null;
     }
-    return date.toLocaleDateString('en-US', { 
+
+    try {
+        const handler = new Function(rawOnClick);
+        return () => {
+            try {
+                const scope = typeof window !== 'undefined' ? window : globalThis;
+                handler.call(scope);
+            } catch (error) {
+                console.error('Failed to execute assignment handler', error);
+            }
+        };
+    } catch (error) {
+        console.error('Failed to create assignment handler', error);
+        return null;
+    }
+}
+
+function normalizeWhitespace(value) {
+    return typeof value === 'string'
+        ? value.replace(/\u00A0/g, ' ').replace(/\s+/g, ' ').trim()
+        : '';
+}
+
+function parseDueDate(rawText) {
+    if (!rawText) {
+        return null;
+    }
+
+    const sanitized = normalizeWhitespace(rawText);
+    if (!sanitized) {
+        return null;
+    }
+
+    const nativeParsed = new Date(sanitized);
+    if (!Number.isNaN(nativeParsed.getTime())) {
+        return nativeParsed;
+    }
+
+    const normalized = sanitized
+        .replace(/([A-Za-z\u00C0-\u017F]+)-(\d{1,2}),/u, '$1 $2,')
+        .replace(/\s+at\s+/i, ' ');
+    const normalizedParsed = new Date(normalized);
+    if (!Number.isNaN(normalizedParsed.getTime())) {
+        return normalizedParsed;
+    }
+
+    const match = sanitized.match(/([A-Za-z\u00C0-\u017F]+)-?(\d{1,2}),\s*(\d{4})(?:\s+at\s+(\d{1,2})(?::(\d{2}))?(?:\s*(am|pm))?)?/i);
+    if (!match) {
+        return null;
+    }
+
+    const monthToken = normalizeMonthToken(match[1]);
+    const monthIndex = monthTokenToIndex(monthToken);
+    if (monthIndex === null) {
+        return null;
+    }
+
+    const day = parseInt(match[2], 10);
+    const year = parseInt(match[3], 10);
+    let hour = match[4] ? parseInt(match[4], 10) : 0;
+    const minute = match[5] ? parseInt(match[5], 10) : 0;
+    const meridiem = match[6] ? match[6].toLowerCase() : null;
+
+    if (meridiem === 'pm' && hour < 12) {
+        hour += 12;
+    } else if (meridiem === 'am' && hour === 12) {
+        hour = 0;
+    }
+
+    const parsedDate = new Date(year, monthIndex, day, hour, minute);
+    return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
+}
+
+function normalizeMonthToken(token) {
+    return stripAccents(token).replace(/\./g, '').toLowerCase();
+}
+
+function monthTokenToIndex(token) {
+    if (!token) {
+        return null;
+    }
+
+    const monthMap = {
+        jan: 0,
+        january: 0,
+        janv: 0,
+        janvier: 0,
+        feb: 1,
+        february: 1,
+        fev: 1,
+        fevrier: 1,
+        mar: 2,
+        march: 2,
+        mars: 2,
+        apr: 3,
+        april: 3,
+        avr: 3,
+        avril: 3,
+        may: 4,
+        mai: 4,
+        jun: 5,
+        june: 5,
+        juin: 5,
+        jul: 6,
+        july: 6,
+        juil: 6,
+        juillet: 6,
+        aug: 7,
+        august: 7,
+        aou: 7,
+        aout: 7,
+        sep: 8,
+        sept: 8,
+        september: 8,
+        septembre: 8,
+        oct: 9,
+        october: 9,
+        octobre: 9,
+        nov: 10,
+        november: 10,
+        novembre: 10,
+        dec: 11,
+        december: 11,
+        decembre: 11
+    };
+
+    if (token in monthMap) {
+        return monthMap[token];
+    }
+
+    return null;
+}
+
+function stripAccents(value) {
+    return value
+        ? value.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        : '';
+}
+
+function toDate(value) {
+    if (!value) {
+        return null;
+    }
+
+    if (value instanceof Date) {
+        return Number.isNaN(value.getTime()) ? null : value;
+    }
+
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function isOverdue(dateValue) {
+    const dueDate = toDate(dateValue);
+    if (!dueDate) {
+        return false;
+    }
+
+    const now = new Date();
+    return dueDate.getTime() < now.getTime();
+}
+
+function formatDate(dateValue, fallbackText = '') {
+    const date = toDate(dateValue);
+    if (!date) {
+        return fallbackText;
+    }
+
+    const displayDate = new Date(date);
+    if (displayDate.getHours() === 0 && displayDate.getMinutes() === 0) {
+        displayDate.setHours(23, 59);
+    }
+
+    return displayDate.toLocaleDateString('en-US', {
         weekday: 'short',
-        month: 'short', 
+        month: 'short',
         day: 'numeric',
         hour: 'numeric',
         minute: '2-digit'
     });
 }
 
-function formatRelativeDate(dateStr) {
-    const date = new Date(dateStr);
+function formatRelativeDate(dateValue) {
+    const date = toDate(dateValue);
+    if (!date) {
+        return null;
+    }
+
     const now = new Date();
-    const diffTime = date - now;
+    const diffTime = date.getTime() - now.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
-    // Only return relative dates for upcoming assignments
-    if (diffDays <= 0) return null;
-    
-    if (diffDays === 1) return 'Tomorrow';
-    if (diffDays < 7) return `In ${diffDays} days`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks`;
-    
+
+    if (diffDays <= 0) {
+        return null;
+    }
+
+    if (diffDays === 1) {
+        return 'Tomorrow';
+    }
+
+    if (diffDays < 7) {
+        return `In ${diffDays} days`;
+    }
+
+    if (diffDays < 30) {
+        return `${Math.floor(diffDays / 7)} weeks`;
+    }
+
     return null;
 }
 
@@ -205,7 +451,7 @@ function createStatusIndicators(assignment) {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-diamond-plus"><path d="M12 8v8"/><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41L13.7 2.71a2.41 2.41 0 0 0-3.41 0z"/><path d="M8 12h8"/></svg>
                 </div>
             ` : ''}
-            ${assignment.status.includes('Submitted') ? `
+            ${assignment.isSubmitted ? `
                 <div class="indicator submitted-indicator" title="Submitted">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check">
                         <circle cx="12" cy="12" r="10"/>
@@ -213,7 +459,7 @@ function createStatusIndicators(assignment) {
                     </svg>
                 </div>
             ` : ''}
-            ${!assignment.status.includes('Submitted') && isOverdue(assignment.date) ? `
+            ${!assignment.isSubmitted && isOverdue(assignment.dueDate) ? `
                 <div class="indicator overdue-indicator" title="Overdue">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alarm-clock-minus">
                         <circle cx="12" cy="13" r="8"/>

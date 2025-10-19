@@ -12,6 +12,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: `${pkg.name}.user.js`,
+    publicPath: '',
     clean: true,
   },
   devServer: {
