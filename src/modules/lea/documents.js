@@ -42,6 +42,7 @@ export function optimizeCourseDocuments() {
             const fileLink = row.querySelector('.colVoirTelecharger a');
             const fileIcon = row.querySelector('.colVoirTelecharger img');
             const fileSize = row.querySelector('.colVoirTelecharger')?.textContent?.trim().split('\n').pop()?.trim();
+            const isUnread = Boolean(row.querySelector('.classeEtoileNouvDoc'));
             
             if (!title || !fileLink) return;
 
@@ -50,7 +51,13 @@ export function optimizeCourseDocuments() {
             
             const docCard = document.createElement('div');
             docCard.className = 'document-card';
+
+            const unreadBadge = isUnread
+                ? `<span class="doc-unread-indicator" role="status" aria-label="Unread document"><span class="doc-unread-dot" aria-hidden="true"></span><span class="doc-unread-text">Unread</span></span>`
+                : '';
+
             docCard.innerHTML = `
+                ${unreadBadge}
                 <div class="doc-icon">
                     ${fileIcon ? `<img src="${fileIcon.src}" alt="File type">` : ''}
                 </div>
