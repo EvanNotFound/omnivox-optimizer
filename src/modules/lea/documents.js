@@ -71,7 +71,10 @@ export function optimizeCourseDocuments() {
 			docCard.className = "flex flex-col items-start gap-1 p-4 bg-white rounded-xl border border-neutral-200 shadow-sm shadow-neutral-100 transition-all duration-200 relative hover:-translate-y-0.5 hover:border-neutral-300 no-underline group";
 
 			const unreadBadge = isUnread
-				? `<span class="doc-unread-indicator" role="status" aria-label="Unread document"><span class="doc-unread-text">Unread</span><span class="doc-unread-dot" aria-hidden="true"></span></span>`
+				? `<span class="absolute top-3 right-3 flex items-center gap-1.5 text-xs font-semibold text-red-600 tracking-wide leading-none whitespace-nowrap rounded-full bg-red-800/5 px-2 py-1" role="status" aria-label="Unread document">
+					<span class="uppercase">Unread</span>
+					<span class="w-2 h-2 rounded-full bg-red-600" aria-hidden="true"></span>
+				</span>`
 				: "";
 
 			docCard.innerHTML = `
