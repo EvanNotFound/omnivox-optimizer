@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.17](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.16...v1.3.17) (2025-10-26)
+
+
+### Features
+
+* **lea:** improve unread badge appearance in documents list ([f55a57d](https://github.com/evannotfound/omnivox-optimizer/commit/f55a57dbefb0d1868e9913aa5fe7beba6759c1f9))
+* **lea:** modernize documents UI and load Tailwind at runtime ([f568195](https://github.com/evannotfound/omnivox-optimizer/commit/f568195ea47118e37c2a4e376421050fac0d313f))
+* **lea:** show unread indicator on course documents ([1544cdf](https://github.com/evannotfound/omnivox-optimizer/commit/1544cdff301f6acdcf8b876d152fc0eb51e92be8))
+
 ### [1.3.16](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.15...v1.3.16) (2025-10-19)
 
 ### [1.3.15](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.14...v1.3.15) (2025-10-19)
