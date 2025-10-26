@@ -1,82 +1,102 @@
 export function optimizeCourseDocuments() {
-    const documentsTable = document.querySelector('#tblDocuments');
-    if (!documentsTable) return;
+	const documentsTable = document.querySelector("#tblDocuments");
+	if (!documentsTable) return;
 
-    const mainContainer = document.createElement('div');
-    mainContainer.className = 'documents-container';
+	const mainContainer = document.createElement("div");
+	mainContainer.className = "documents-container";
 
-    const centerContainer = document.querySelector("#ctl00 > center");
+	const centerContainer = document.querySelector("#ctl00 > center");
 
-    // Remove br tags from the center container
-    centerContainer.querySelectorAll('br').forEach(br => {
-        br.remove();
-    });
+	// Remove br tags from the center container
+	centerContainer.querySelectorAll("br").forEach((br) => {
+		br.remove();
+	});
 
-    // Process each category
-    const categories = documentsTable.querySelectorAll('.CategorieDocument');
-    categories.forEach(category => {
-        // Create category container
-        const categoryContainer = document.createElement('div');
-        categoryContainer.className = 'category-container';
+	// Process each category
+	const categories = documentsTable.querySelectorAll(".CategorieDocument");
+	categories.forEach((category) => {
+		// Create category container
+		const categoryContainer = document.createElement("div");
+		categoryContainer.className = "category-container";
 
-        // Get category title text and create header
-        const categoryTitle = category.querySelector('.DisDoc_TitreCategorie')?.textContent?.trim();
-        if (categoryTitle) {
-            const categoryHeader = document.createElement('div');
-            categoryHeader.className = 'category-header';
-            categoryHeader.textContent = categoryTitle;
-            categoryContainer.appendChild(categoryHeader);
-        }
+		// Get category title text and create header
+		const categoryTitle = category
+			.querySelector(".DisDoc_TitreCategorie")
+			?.textContent?.trim();
+		if (categoryTitle) {
+			const categoryHeader = document.createElement("div");
+			categoryHeader.className = "category-header";
+			categoryHeader.textContent = categoryTitle;
+			categoryContainer.appendChild(categoryHeader);
+		}
 
-        // Create grid container for documents
-        const gridContainer = document.createElement('div');
-        gridContainer.className = 'documents-grid';
-        
-        // Get all document rows in this category
-        const documentRows = category.querySelectorAll('.itemDataGrid, .itemDataGridAltern');
-        
-        // Convert each row to a grid item
-        documentRows.forEach(row => {
-            const title = row.querySelector('.lblTitreDocumentDansListe')?.textContent?.trim();
-            const date = row.querySelector('.DocDispo')?.textContent?.trim().replace('since', '').trim();
-            const fileLink = row.querySelector('.colVoirTelecharger a');
-            const fileIcon = row.querySelector('.colVoirTelecharger img');
-            const fileSize = row.querySelector('.colVoirTelecharger')?.textContent?.trim().split('\n').pop()?.trim();
-            const isUnread = Boolean(row.querySelector('.classeEtoileNouvDoc'));
-            
-            if (!title || !fileLink) return;
+		// Create grid container for documents
+		const gridContainer = document.createElement("div");
+		gridContainer.className = "documents-grid";
 
-            // Extract the visualization URL from the javascript: handler
-            const visualizeUrl = fileLink.href.match(/VisualiseDocument\.aspx\?.*?(?=')/)?.[0];
-            
-            const docCard = document.createElement('div');
-            docCard.className = 'document-card';
+		// Get all document rows in this category
+		const documentRows = category.querySelectorAll(
+			".itemDataGrid, .itemDataGridAltern"
+		);
 
-            const unreadBadge = isUnread
-                ? `<span class="doc-unread-indicator" role="status" aria-label="Unread document"><span class="doc-unread-dot" aria-hidden="true"></span><span class="doc-unread-text">Unread</span></span>`
-                : '';
+		// Convert each row to a grid item
+		documentRows.forEach((row) => {
+			const title = row
+				.querySelector(".lblTitreDocumentDansListe")
+				?.textContent?.trim();
+			const date = row
+				.querySelector(".DocDispo")
+				?.textContent?.trim()
+				.replace("since", "")
+				.trim();
+			const fileLink = row.querySelector(".colVoirTelecharger a");
+			const fileIcon = row.querySelector(".colVoirTelecharger img");
+			const fileSize = row
+				.querySelector(".colVoirTelecharger")
+				?.textContent?.trim()
+				.split("\n")
+				.pop()
+				?.trim();
+			const isUnread = Boolean(row.querySelector(".classeEtoileNouvDoc"));
 
-            docCard.innerHTML = `
-                ${unreadBadge}
-                <div class="doc-icon">
-                    ${fileIcon ? `<img src="${fileIcon.src}" alt="File type">` : ''}
-                </div>
-                <div class="doc-info">
-                    <a href="${visualizeUrl || fileLink.href}" class="doc-title">${title}</a>
-                    <div class="doc-meta">
-                        ${date ? `<span class="doc-date">${date}</span>` : ''}
-                        ${fileSize ? `<span class="doc-size">${fileSize}</span>` : ''}
-                    </div>
-                </div>
-            `;
+			if (!title || !fileLink) return;
 
-            gridContainer.appendChild(docCard);
-        });
+			// Extract the visualization URL from the javascript: handler
+			const visualizeUrl = fileLink.href.match(
+				/VisualiseDocument\.aspx\?.*?(?=')/
+			)?.[0];
 
-        categoryContainer.appendChild(gridContainer);
-        mainContainer.appendChild(categoryContainer);
-    });
+			const docCard = document.createElement("a");
+			docCard.href = visualizeUrl || fileLink.href;
+			docCard.className = "flex flex-col items-start gap-1 p-4 bg-white rounded-xl border border-neutral-200 shadow-sm shadow-neutral-100 transition-all duration-200 relative hover:-translate-y-0.5 hover:border-neutral-300 no-underline group";
 
-    // Replace table with new container
-    documentsTable.parentNode.replaceChild(mainContainer, documentsTable);
+			const unreadBadge = isUnread
+				? `<span class="doc-unread-indicator" role="status" aria-label="Unread document"><span class="doc-unread-text">Unread</span><span class="doc-unread-dot" aria-hidden="true"></span></span>`
+				: "";
+
+			docCard.innerHTML = `
+				<div class="flex flex-col gap-4">
+					${unreadBadge}
+					<div class="flex-shrink-0 w-6 h-6 flex items-center justify-center">
+						${fileIcon ? `<img src="${fileIcon.src}" alt="File type" class="w-6 h-6 object-contain">` : ""}
+					</div>
+					<span class="block text-base font-semibold text-slate-900 no-underline tracking-tight leading-normal text-left group-hover:text-red-800">${title}</span>
+				</div>
+				<div class="w-full text-neutral-600">
+					<div class="flex justify-between items-center w-full">
+						${date ? `<span class="text-xs text-neutral-500">${date}</span>` : ""}
+						${fileSize ? `<span class="text-xs text-neutral-500">${fileSize}</span>` : ""}
+					</div>
+				</div>
+			`;
+
+			gridContainer.appendChild(docCard);
+		});
+
+		categoryContainer.appendChild(gridContainer);
+		mainContainer.appendChild(categoryContainer);
+	});
+
+	// Replace table with new container
+	documentsTable.parentNode.replaceChild(mainContainer, documentsTable);
 }

@@ -32,21 +32,6 @@
     padding 1rem
     background $neutral-50
 
-.document-card
-    display flex
-    align-items flex-start
-    gap 0.75rem
-    padding 1rem
-    background white
-    border-radius 12px
-    border 1px solid $neutral-200
-    box-shadow 0 1px 2px rgba(15, 23, 42, 0.05)
-    transition border-color 0.2s ease, transform 0.2s ease
-    position relative
-
-    &:hover
-        transform translateY(-2px)
-        border-color $neutral-300
 
 .doc-unread-indicator
     position absolute
@@ -71,42 +56,7 @@
 .doc-unread-text
     text-transform uppercase
 
-.doc-icon
-    flex-shrink 0
-    width 32px
-    height 32px
-    display flex
-    align-items center
-    justify-content center
 
-.doc-icon img
-    width 24px
-    height 24px
-    object-fit contain
-
-.doc-info
-    flex 1
-    min-width 0
-
-.doc-title
-    display block
-    font-size 1rem
-    font-weight 600
-    color $slate-900
-    text-decoration none
-    margin-bottom 0.35rem
-    line-height 1.4
-    text-align left
-
-.doc-title:hover
-    color $slate-600
-
-.doc-meta
-    display flex
-    flex-wrap wrap
-    gap 0.75rem
-    font-size 0.8rem
-    color $slate-500
 
 body > table:nth-child(8) > tbody > tr.trBandeau > td:nth-child(2), #tblExplicationsEtudiant, #ctl00 > center > table:nth-child(4)
     display none

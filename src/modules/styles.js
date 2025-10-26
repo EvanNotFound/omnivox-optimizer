@@ -21,6 +21,11 @@ export function injectStyles() {
     document.head.appendChild(preconnectGstatic);
     document.head.appendChild(fontStylesheet);
 
+    // Add Tailwind CSS Play CDN
+    const tailwindScript = document.createElement('script');
+    tailwindScript.src = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4';
+    document.head.appendChild(tailwindScript);
+
     // Original style injection code
     const styles = stylusModules.keys()
         .map(key => {
