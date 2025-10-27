@@ -525,7 +525,7 @@ eval("var map = {\n\t\"./basic.styl\": \"./src/styles/basic.styl\",\n\t\"./color
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("8ebaf1d5046dae8345bd")
+/******/ 		__webpack_require__.h = () => ("480a3bf20647f2c6459e")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
