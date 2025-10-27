@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.18](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.17...v1.3.18) (2025-10-27)
+
+
+### Features
+
+* **lea:** adjust sidebar spacing and shortcuts layout ([d331bdc](https://github.com/evannotfound/omnivox-optimizer/commit/d331bdc1490fc2f7b09d1cc54fd186e54b68857d))
+* **lea:** enhance course documents UI and add mark-all-read ([ae8cccb](https://github.com/evannotfound/omnivox-optimizer/commit/ae8cccb0a8a96527b9a21212a02f98866fc58575))
+
+
+### Bug Fixes
+
+* **lea:** add justify-between to document card layout ([281f1fe](https://github.com/evannotfound/omnivox-optimizer/commit/281f1fe76d10ccc8c737d18dd46bce4f9533cfbe))
+* **lea:** change 'Mark remaining' button label to 'Mark as read' ([7e86f88](https://github.com/evannotfound/omnivox-optimizer/commit/7e86f88de09164ccd7cfe3eb66359c6151e268b9))
+
 ### [1.3.17](https://github.com/evannotfound/omnivox-optimizer/compare/v1.3.16...v1.3.17) (2025-10-26)
 
 
