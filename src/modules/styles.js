@@ -26,6 +26,21 @@ export function injectStyles() {
     tailwindScript.src = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4';
     document.head.appendChild(tailwindScript);
 
+    // Remove problematic box-sizing rules from Tailwind's default styles
+    tailwindScript.addEventListener('load', () => {
+        const styleTags = document.head.querySelectorAll('style');
+        if (styleTags.length > 0) {
+            const lastStyleTag = styleTags[styleTags.length - 1];
+            if (lastStyleTag.textContent) {
+                // Remove the box-sizing reset that breaks existing styles
+                lastStyleTag.textContent = lastStyleTag.textContent.replace(
+                    /\*,\s*::after,\s*::before,\s*::backdrop,\s*::file-selector-button\s*\{[^}]*box-sizing:\s*border-box;[^}]*\}/g,
+                    ''
+                );
+            }
+        }
+    });
+
     // Original style injection code
     const styles = stylusModules.keys()
         .map(key => {
