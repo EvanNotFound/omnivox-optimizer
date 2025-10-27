@@ -25,6 +25,64 @@
     color $slate-900
     font-size 1.05rem
 
+.category-actions
+    display flex
+    align-items center
+    gap 0.5rem
+
+.documents-page-title
+    display flex
+    align-items center
+    justify-content space-between
+    gap 0.75rem
+    flex-wrap wrap
+
+.documents-toolbar
+    display flex
+    justify-content flex-end
+    align-items center
+    gap 0.5rem
+    padding 0 1rem
+    margin-bottom 0.75rem
+
+.documents-toolbar-inline
+    display inline-flex
+    align-items center
+    gap 0.5rem
+    margin-left auto
+
+.category-read-all,
+.documents-read-all
+    display inline-flex
+    align-items center
+    gap 0.35rem
+    padding 0.35rem 0.85rem
+    border-radius 9999px
+    font-size 0.75rem
+    font-weight 600
+    border 1px solid rgba(148, 163, 184, 0.35)
+    background white
+    color $slate-600
+    cursor pointer
+    transition background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease
+
+.category-read-all.is-active,
+.documents-read-all.is-active
+    border-color rgba(239, 68, 68, 0.35)
+    background rgba(239, 68, 68, 0.08)
+    color #ef4444
+
+.category-read-all.is-active:hover,
+.documents-read-all.is-active:hover
+    background rgba(239, 68, 68, 0.16)
+
+.category-read-all:disabled,
+.documents-read-all:disabled
+    cursor default
+    color $neutral-500
+    border-color rgba(148, 163, 184, 0.25)
+    background $neutral-100
+
 .documents-grid
     display grid
     grid-template-columns repeat(auto-fill, minmax(260px, 1fr))
