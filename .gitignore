@@ -133,3 +133,5 @@ out
 lea-*.html
 lea-*.js
 lea-*.css
+
+dist/*.hot-update.*
