@@ -37,10 +37,10 @@ export function injectStyles() {
                     /\*,\s*::after,\s*::before,\s*::backdrop,\s*::file-selector-button\s*\{[^}]*box-sizing:\s*border-box;[^}]*\}/g,
                     ''
                 );
-                // Remove problematic img/video max-width rules
+                // Remove problematic img/video height: auto rule
                 lastStyleTag.textContent = lastStyleTag.textContent.replace(
-                    /img,\s*video\s*\{[^}]*max-width:\s*100%;[^}]*height:\s*auto;[^}]*\}/g,
-                    ''
+                    /img,\s*video\s*\{([^}]*?)height:\s*auto;([^}]*?)\}/g,
+                    'img, video {$1$2}'
                 );
             }
         }
