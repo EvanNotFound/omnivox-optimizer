@@ -26,7 +26,7 @@ export function injectStyles() {
     tailwindScript.src = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4';
     document.head.appendChild(tailwindScript);
 
-    // Remove problematic box-sizing rules from Tailwind's default styles
+    // Remove problematic rules from Tailwind's default styles
     tailwindScript.addEventListener('load', () => {
         const styleTags = document.head.querySelectorAll('style');
         if (styleTags.length > 0) {
@@ -35,6 +35,11 @@ export function injectStyles() {
                 // Remove the box-sizing reset that breaks existing styles
                 lastStyleTag.textContent = lastStyleTag.textContent.replace(
                     /\*,\s*::after,\s*::before,\s*::backdrop,\s*::file-selector-button\s*\{[^}]*box-sizing:\s*border-box;[^}]*\}/g,
+                    ''
+                );
+                // Remove problematic img/video max-width rules
+                lastStyleTag.textContent = lastStyleTag.textContent.replace(
+                    /img,\s*video\s*\{[^}]*max-width:\s*100%;[^}]*height:\s*auto;[^}]*\}/g,
                     ''
                 );
             }
