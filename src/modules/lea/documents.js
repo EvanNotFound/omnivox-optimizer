@@ -230,7 +230,7 @@ export function optimizeCourseDocuments() {
 				readAllButton.textContent =
 					unreadCount === docEntries.length
 						? `Mark all read (${unreadCount})`
-						: `Mark remaining (${unreadCount})`;
+						: `Mark as read (${unreadCount})`;
 			};
 
 			readAllButton.addEventListener("click", async () => {
