@@ -75,14 +75,20 @@ img[src*='/cvir/UI/Theme/Lea_Defaut/Images/'], .table-plug-skytech, .UnInstantCl
     position sticky !important
     top 56px !important
 
+td#spLeftSize
+    padding-top 0 !important
+
 /* Lea and Mio buttons */
 #region-raccourcis-services-skytech
-    padding 20px 0 !important
+    padding 20px !important
     display flex !important
     flex-direction row !important
     gap 16px !important
     justify-content center !important
     margin 0 !important
+
+    *
+        box-sizing content-box !important
 
 #region-raccourcis-services-skytech .raccourci
     padding 1rem !important
@@ -97,6 +103,7 @@ img[src*='/cvir/UI/Theme/Lea_Defaut/Images/'], .table-plug-skytech, .UnInstantCl
     justify-content space-between !important
     align-items center !important
     gap 8px !important
+    width 50% !important
     box-shadow 0 1px 2px 0 $neutral-100 !important
 
 #region-raccourcis-services-skytech .raccourci:hover
