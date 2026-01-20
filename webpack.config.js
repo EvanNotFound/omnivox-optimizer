@@ -8,6 +8,9 @@ const dev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   mode: dev ? 'development' : 'production',
+  optimization: {
+    minimize: false,
+  },
   entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -36,7 +39,15 @@ module.exports = {
             use: [
                 'raw-loader',
                 'css-loader',
-                'stylus-loader'
+                {
+                  loader: 'stylus-loader',
+                  options: {
+                    // Ensure CSS stays uncompressed for GreasyFork.
+                    stylusOptions: {
+                      compress: false,
+                    },
+                  },
+                }
             ]
         }
     ]
